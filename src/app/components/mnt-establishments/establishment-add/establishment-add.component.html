@@ -1,0 +1,36 @@
+<form [formGroup]="frm1" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label for="ubigeo" class="form-label">Ubigeo</label>
+        <input type="text" formControlName="title" class="form-control" id="ubigeo">
+    </div>
+    <div class="mb-3">
+        <label for="ruc" class="form-label">Ruc</label>
+        <input type="text" formControlName="title" class="form-control" id="ruc">
+    </div>    
+    <div class="mb-3">
+        <label for="ubigeo" class="form-label">Tipo</label>
+        <input type="text" formControlName="tipo" class="form-control" id="tipo">
+    </div>    
+    <div class="mb-3">
+        <label for="ubigeo" class="form-label">Nombre</label>
+        <input type="text" formControlName="title" class="form-control" id="ubigeo">
+    </div>    
+    <div class="mb-3">
+        <label for="ubigeo" class="form-label">Direcci&oacute;n</label>
+        <input type="text" formControlName="title" class="form-control" id="ubigeo">
+    </div>    
+        <div class="mb-3">
+        <label for="ubigeo" class="form-label">Estado</label>
+        <input type="text" formControlName="title" class="form-control" id="ubigeo">
+    </div>
+    <div class="mb-3">
+        <label for="ubigeo" class="form-label">Email</label>
+        <input type="text" formControlName="title" class="form-control" id="ubigeo">
+    </div>    
+    <div class="mb-3">
+        <label for="ubigeo" class="form-label">Tel&eacute;fono</label>
+        <input type="text" formControlName="title" class="form-control" id="ubigeo">
+    </div>    
+    <button type="submit"  class="btn btn-primary">Save</button>
+    <button type="button"  style="margin-left: 10px;" (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+</form>
