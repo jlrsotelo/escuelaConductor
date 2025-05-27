@@ -1,36 +1,68 @@
 <form [formGroup]="frm1" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-        <label for="ubigeo" class="form-label">Ubigeo</label>
-        <input type="text" formControlName="title" class="form-control" id="ubigeo">
-    </div>
-    <div class="mb-3">
-        <label for="ruc" class="form-label">Ruc</label>
-        <input type="text" formControlName="title" class="form-control" id="ruc">
-    </div>    
-    <div class="mb-3">
-        <label for="ubigeo" class="form-label">Tipo</label>
-        <input type="text" formControlName="tipo" class="form-control" id="tipo">
-    </div>    
-    <div class="mb-3">
-        <label for="ubigeo" class="form-label">Nombre</label>
-        <input type="text" formControlName="title" class="form-control" id="ubigeo">
-    </div>    
-    <div class="mb-3">
-        <label for="ubigeo" class="form-label">Direcci&oacute;n</label>
-        <input type="text" formControlName="title" class="form-control" id="ubigeo">
-    </div>    
-        <div class="mb-3">
-        <label for="ubigeo" class="form-label">Estado</label>
-        <input type="text" formControlName="title" class="form-control" id="ubigeo">
-    </div>
-    <div class="mb-3">
-        <label for="ubigeo" class="form-label">Email</label>
-        <input type="text" formControlName="title" class="form-control" id="ubigeo">
-    </div>    
-    <div class="mb-3">
-        <label for="ubigeo" class="form-label">Tel&eacute;fono</label>
-        <input type="text" formControlName="title" class="form-control" id="ubigeo">
-    </div>    
-    <button type="submit"  class="btn btn-primary">Save</button>
-    <button type="button"  style="margin-left: 10px;" (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+  <div class="mb-3">
+      <label for="departamento" class="form-label">Departamento</label>
+      <select id="departamento" class="form-select" (change)="getProvince('01')">
+        <option value="" >Seleccione...</option>
+        @for (department of departments; track department.cDepartamento) {
+          <option value="{{department.cDepartamento}}">{{department.departamento}}</option>
+        }
+      </select>
+  </div>
+  <div class="mb-3">
+    <label for="provincia" class="form-label">Provincia</label>
+    <select id="provincia" class="form-select">
+      <option value="" >Seleccione...</option>
+      @for (province of provinces; track province.cProvincia) {
+        <option value="{{province.cProvincia}}">{{province.provincia}}</option>
+      }
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="cubigeo" class="form-label">Distrito</label>
+    <select id="cubigeo" formControlName="cubigeo" class="form-select">
+      <option value="" >Seleccione...</option>
+      @for (district of districts; track district.cUbigeo) {
+        <option value="{{district.cUbigeo}}">{{district.distrito}}</option>
+      }
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="nruc" class="form-label">Ruc</label>
+    <input type="text" formControlName="nruc" class="form-control" id="nruc">
+  </div>
+  <div class="mb-3">
+    <label for="type" class="form-label">Tipo</label>
+    <select id="type" formControlName="type" class="form-select">
+      <option value="">Seleccione...</option>
+      @for (type of types; track type.id) {
+        <option value="{{type.id}}">{{ type.name }}</option>
+      }
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">Nombre</label>
+    <input type="text" formControlName="name" class="form-control" id="name">
+  </div>
+  <div class="mb-3">
+    <label for="address" class="form-label">Direcci&oacute;n</label>
+    <input type="text" formControlName="address" class="form-control" id="address">
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="text" formControlName="email" class="form-control" id="email">
+  </div>
+  <div class="mb-3">
+    <label for="phone" class="form-label">Tel&eacute;fono</label>
+    <input type="text" formControlName="phone" class="form-control" id="phone">
+  </div>
+  <div class="mb-3">
+    <label for="state" class="form-label">Situaci&oacute;n</label>
+    <select id="state" formControlName="state" class="form-select">
+      <option value="" selected>Seleccione...</option>
+      <option value="1">Con Autorizaci&oacute;n</option>
+      <option value="2">Sin Autorizaci&oacute;n</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+  <button type="button" style="margin-left: 10px;" (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
 </form>

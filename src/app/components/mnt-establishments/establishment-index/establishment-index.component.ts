@@ -20,13 +20,14 @@ export class EstablishmentIndexComponent implements OnInit{
   itemsPerPage:number=10;
   router=inject(Router);
   frm1!:FormGroup;
+  formBuilder: any;
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.createForm1();
   }  
 
   buscar(){
-    this.getAll()
+    this.getAll();
   }
 
   nuevo(){
@@ -77,4 +78,12 @@ export class EstablishmentIndexComponent implements OnInit{
       }
     });
   }
+
+  createForm1(){
+    this.frm1= this.formBuilder.group(
+      {
+
+      }
+    )
+  }    
 }
