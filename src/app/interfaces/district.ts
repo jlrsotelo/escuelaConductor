@@ -1,4 +1,4 @@
 export interface District {
-  cUbigeo:string,
+  cubigeo:string,
   distrito:string
 }

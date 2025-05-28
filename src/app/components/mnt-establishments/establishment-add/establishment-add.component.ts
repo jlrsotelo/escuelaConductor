@@ -39,7 +39,6 @@ export class EstablishmentAddComponent implements OnInit{
     this.getAllTypes();
     this.createForm1();
     this.getDepartment();
-    this.getDistrict();
   }
 
   getAllTypes(){
@@ -84,8 +83,8 @@ export class EstablishmentAddComponent implements OnInit{
     )
   }
 
-  getDistrict(){
-    this.districtService.getDistrict('15','01').subscribe(
+  getDistrict(cdep:string, cprov:string){
+    this.districtService.getDistrict(cdep,cprov).subscribe(
       {
         next: (response) => {
           this.districts = response;

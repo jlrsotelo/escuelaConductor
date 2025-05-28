@@ -1,8 +1,8 @@
 <form [formGroup]="frm1" (ngSubmit)="onSubmit()">
   <div class="mb-3">
       <label for="departamento" class="form-label">Departamento</label>
-      <select id="departamento" class="form-select" (change)="getProvince('01')">
-        <option value="" >Seleccione...</option>
+      <select #cdep class="form-select" (change)="getProvince(cdep.value)">
+        <option value="">Seleccione...</option>
         @for (department of departments; track department.cDepartamento) {
           <option value="{{department.cDepartamento}}">{{department.departamento}}</option>
         }
@@ -10,19 +10,19 @@
   </div>
   <div class="mb-3">
     <label for="provincia" class="form-label">Provincia</label>
-    <select id="provincia" class="form-select">
-      <option value="" >Seleccione...</option>
-      @for (province of provinces; track province.cProvincia) {
-        <option value="{{province.cProvincia}}">{{province.provincia}}</option>
+    <select #cprov class="form-select" (change)="getDistrict(cdep.value,cprov.value)">
+      <option value="">Seleccione...</option>
+      @for (province of provinces; track province.cprovincia) {
+        <option value="{{province.cprovincia}}">{{province.provincia}}</option>
       }
     </select>
   </div>
   <div class="mb-3">
     <label for="cubigeo" class="form-label">Distrito</label>
-    <select id="cubigeo" formControlName="cubigeo" class="form-select">
-      <option value="" >Seleccione...</option>
-      @for (district of districts; track district.cUbigeo) {
-        <option value="{{district.cUbigeo}}">{{district.distrito}}</option>
+    <select formControlName="cubigeo" class="form-select">
+      <option value="">Seleccione...</option>
+      @for (district of districts; track district.cubigeo) {
+        <option value="{{district.cubigeo}}">{{district.distrito}}</option>
       }
     </select>
   </div>

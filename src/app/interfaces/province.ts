@@ -1,4 +1,4 @@
 export interface Province {
-  cProvincia:string,
+  cprovincia:string,
   provincia:string
 }
