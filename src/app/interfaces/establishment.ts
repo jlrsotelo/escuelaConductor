@@ -1,3 +1,5 @@
+import {Ubigeo} from './ubigeo';
+
 export interface Establishment {
   type:string,
   name:string,
@@ -7,5 +9,5 @@ export interface Establishment {
   phone:string,
   cestablishment?:number,
   nruc:string,
-  cubigeo:string
+  cubigeo:Ubigeo
 }

@@ -1,38 +1,74 @@
 <form [formGroup]="frm1" (ngSubmit)="onSubmit()">
   <div class="mb-3">
-      <label for="departamento" class="form-label">Departamento</label>
-      <select #cdep class="form-select" (change)="getProvince(cdep.value)">
+      <label for="cDepartamento" class="form-label">Departamento</label>
+      <select formControlName="cDepartamento" #cdep class="form-select" (change)="getProvince(cdep.value)" [ngClass]="{ 'is-invalid': fp['cDepartamento'].errors }">
         <option value="">Seleccione...</option>
-        @for (department of departments; track department.cDepartamento) {
-          <option value="{{department.cDepartamento}}">{{department.departamento}}</option>
+        @for (department of departments; track department.cdepartamento) {
+          <option value="{{department.cdepartamento}}">{{department.departamento}}</option>
         }
       </select>
+      @if (fp['cDepartamento'].errors) {
+        <div class="invalid-feedback">
+          @if (fp['cDepartamento'].errors['required']) {
+            <div>El departamento es requerido</div>
+          }
+        </div>
+      }
   </div>
   <div class="mb-3">
-    <label for="provincia" class="form-label">Provincia</label>
-    <select #cprov class="form-select" (change)="getDistrict(cdep.value,cprov.value)">
+    <label for="cProvincia" class="form-label">Provincia</label>
+    <select formControlName="cProvincia" #cprov class="form-select" (change)="getDistrict(cdep.value,cprov.value)" [ngClass]="{ 'is-invalid': fp['cProvincia'].errors }">
       <option value="">Seleccione...</option>
       @for (province of provinces; track province.cprovincia) {
         <option value="{{province.cprovincia}}">{{province.provincia}}</option>
       }
     </select>
+    @if (fp['cProvincia'].errors) {
+      <div class="invalid-feedback">
+        @if (fp['cProvincia'].errors['required']) {
+          <div>La provincia es requerido</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-3">
-    <label for="cubigeo" class="form-label">Distrito</label>
-    <select formControlName="cubigeo" class="form-select">
+    <label for="cDistrito" class="form-label">Distrito</label>
+    <select formControlName="cDistrito" class="form-select" [ngClass]="{ 'is-invalid': fp['cDistrito'].errors }">
       <option value="">Seleccione...</option>
-      @for (district of districts; track district.cubigeo) {
-        <option value="{{district.cubigeo}}">{{district.distrito}}</option>
+      @for (district of districts; track district.cdistrito) {
+        <option value="{{district.cdistrito}}">{{district.distrito}}</option>
       }
     </select>
+    @if (fp['cDistrito'].errors) {
+      <div class="invalid-feedback">
+        @if (fp['cDistrito'].errors['required']) {
+          <div>El distrito es requerido</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-3">
     <label for="nruc" class="form-label">Ruc</label>
-    <input type="text" formControlName="nruc" class="form-control" id="nruc">
+    <input type="text" formControlName="nruc" class="form-control" id="nruc" [ngClass]="{ 'is-invalid': fp['nruc'].errors }">
+    @if (fp['nruc'].errors) {
+      <div class="invalid-feedback">
+        @if (fp['nruc'].errors['required']) {
+          <div>El n&uacute;mero de RUC es requerido</div>
+        } @if (fp['nruc'].hasError('minlength')) {
+        <div>
+          El n&uacute;mero de RUC es requerido y debe tener como m&iacute;mino {{ fp["nruc"].errors["minlength"].requiredLength }} caracteres
+        </div>
+      } @if (fp['nruc'].hasError('maxlength')) {
+        <div>
+          El n&uacute;mero de RUC es requerido y debe tener como m&aacute;xino {{ fp["nruc"].errors["maxlength"].requiredLength }} caracteres
+        </div>
+      }
+      </div>
+    }
   </div>
   <div class="mb-3">
     <label for="type" class="form-label">Tipo</label>
-    <select id="type" formControlName="type" class="form-select">
+    <select id="type" formControlName="type" class="form-select" [ngClass]="{ 'is-invalid': fp['nruc'].errors }">
       <option value="">Seleccione...</option>
       @for (type of types; track type.id) {
         <option value="{{type.id}}">{{ type.name }}</option>
@@ -41,27 +77,90 @@
   </div>
   <div class="mb-3">
     <label for="name" class="form-label">Nombre</label>
-    <input type="text" formControlName="name" class="form-control" id="name">
+    <input type="text" formControlName="name" class="form-control" id="name" [ngClass]="{ 'is-invalid': fp['nruc'].errors }">
+    @if (fp['name'].errors) {
+      <div class="invalid-feedback">
+        @if (fp['name'].errors['required']) {
+          <div>El nombre es requerido</div>
+        } @if (fp['name'].hasError('minlength')) {
+        <div>
+          El nombre es requerido y debe tener como m&iacute;mino {{ fp["name"].errors["minlength"].requiredLength }} caracteres
+        </div>
+      } @if (fp['name'].hasError('maxlength')) {
+        <div>
+          El nombre es requerido y debe tener como m&aacute;xino {{ fp["name"].errors["maxlength"].requiredLength }} caracteres
+        </div>
+      }
+      </div>
+    }
   </div>
   <div class="mb-3">
     <label for="address" class="form-label">Direcci&oacute;n</label>
-    <input type="text" formControlName="address" class="form-control" id="address">
+    <input type="text" formControlName="address" class="form-control" id="address" [ngClass]="{ 'is-invalid': fp['address'].errors }">
+    @if (fp['address'].errors) {
+      <div class="invalid-feedback">
+        @if (fp['address'].errors['required']) {
+          <div>La direcci&oacute;n es requerido</div>
+        } @if (fp['address'].hasError('minlength')) {
+        <div>
+          La direcci&oacute;n es requerido y debe tener como m&iacute;mino {{ fp["address"].errors["minlength"].requiredLength }} caracteres
+        </div>
+      } @if (fp['address'].hasError('maxlength')) {
+        <div>
+          La direcci&oacute;n es requerido y debe tener como m&aacute;xino {{ fp["address"].errors["maxlength"].requiredLength }} caracteres
+        </div>
+      }
+      </div>
+    }
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>
-    <input type="text" formControlName="email" class="form-control" id="email">
+    <input type="text" formControlName="email" class="form-control" id="email" [ngClass]="{ 'is-invalid': fp['email'].errors }">
+    @if (fp['email'].errors) {
+      <div class="invalid-feedback">
+        @if (fp['email'].hasError('minlength')) {
+          <div>
+            El email es requerido y debe tener como m&iacute;mino {{ fp["email"].errors["minlength"].requiredLength }} caracteres
+          </div>
+        } @if (fp['email'].hasError('maxlength')) {
+        <div>
+          El email es requerido y debe tener como m&aacute;xino {{ fp["email"].errors["maxlength"].requiredLength }} caracteres
+        </div>
+      }
+      </div>
+    }
   </div>
   <div class="mb-3">
     <label for="phone" class="form-label">Tel&eacute;fono</label>
-    <input type="text" formControlName="phone" class="form-control" id="phone">
+    <input type="text" formControlName="phone" class="form-control" id="phone" [ngClass]="{ 'is-invalid': fp['phone'].errors }">
+    @if (fp['phone'].errors) {
+      <div class="invalid-feedback">
+        @if (fp['phone'].hasError('minlength')) {
+        <div>
+          El Tel&eacute;fono es requerido y debe tener como m&iacute;mino {{ fp["phone"].errors["minlength"].requiredLength }} caracteres
+        </div>
+      } @if (fp['phone'].hasError('maxlength')) {
+        <div>
+          El Tel&eacute;fono es requerido y debe tener como m&aacute;xino {{ fp["phone"].errors["maxlength"].requiredLength }} caracteres
+        </div>
+      }
+      </div>
+    }
   </div>
   <div class="mb-3">
     <label for="state" class="form-label">Situaci&oacute;n</label>
-    <select id="state" formControlName="state" class="form-select">
+    <select id="state" formControlName="state" class="form-select" [ngClass]="{ 'is-invalid': fp['state'].errors }">
       <option value="" selected>Seleccione...</option>
       <option value="1">Con Autorizaci&oacute;n</option>
       <option value="2">Sin Autorizaci&oacute;n</option>
     </select>
+    @if (fp['state'].errors) {
+      <div class="invalid-feedback">
+        @if (fp['state'].errors['required']) {
+          <div>La Situaci&oacute;n es requerido</div>
+        }
+      </div>
+    }
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
   <button type="button" style="margin-left: 10px;" (click)="cancelar()" class="btn btn-secondary">Cancelar</button>

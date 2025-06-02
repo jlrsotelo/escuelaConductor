@@ -15,6 +15,10 @@ export const routes: Routes = [
     component: EstablishmentAddComponent
   },
   {
+    path:'establecimiento/add/:id',
+    loadComponent: () => import('./components/mnt-establishments/establishment-add/establishment-add.component').then(m => m.EstablishmentAddComponent),
+  },
+  {
     path: 'establecimiento/consulta/:id',
     component: EstablishmentListComponent
   },

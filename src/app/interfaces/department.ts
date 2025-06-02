@@ -1,4 +1,4 @@
 export interface Department {
-  cDepartamento:string,
+  cdepartamento:string,
   departamento:string
 }

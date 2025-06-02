@@ -22,6 +22,12 @@ export class EstablishmentService {
     return this.http.post<Establishment>(this.uri,establishment);
   }
 
+  update(id:number,establishment:Establishment):Observable<Establishment>{
+    const uri_local=`${this.uri}/${id}`;
+    console.log(uri_local)
+    return this.http.put<Establishment>(uri_local,establishment);
+  }
+
   delete(id?:number):Observable<boolean>{
     const uri_local=`${this.uri}/${id}`;
     console.log(uri_local)
@@ -33,5 +39,11 @@ export class EstablishmentService {
     const uri_local=`${this.uri}/by-type?type=${type}`;
     console.log(uri_local)
     return this.http.get<Establishment[]>(uri_local);
+  }
+
+  findById(id?:number):Observable<Establishment>{
+    const uri_local=`${this.uri}/${id}`;
+    console.log(uri_local);
+    return this.http.get<Establishment>(uri_local);
   }
 }

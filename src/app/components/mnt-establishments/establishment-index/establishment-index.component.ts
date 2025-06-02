@@ -24,7 +24,7 @@ export class EstablishmentIndexComponent implements OnInit{
 
   ngOnInit(): void {
     this.createForm1();
-  }  
+  }
 
   buscar(){
     this.getAll();
@@ -79,11 +79,15 @@ export class EstablishmentIndexComponent implements OnInit{
     });
   }
 
+  modificar(establishment:Establishment){
+    this.router.navigate(['establecimiento/add', establishment.cestablishment]);
+  }
+
   createForm1(){
     this.frm1= this.formBuilder.group(
       {
 
       }
     )
-  }    
+  }
 }
