@@ -1,7 +1,8 @@
 import {Ubigeo} from './ubigeo';
+import {Types} from './types';
 
 export interface Establishment {
-  type:string,
+  type:Types,
   name:string,
   address:string,
   state:string,

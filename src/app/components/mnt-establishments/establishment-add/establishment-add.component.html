@@ -49,31 +49,42 @@
   </div>
   <div class="mb-3">
     <label for="nruc" class="form-label">Ruc</label>
-    <input type="text" formControlName="nruc" class="form-control" id="nruc" [ngClass]="{ 'is-invalid': fp['nruc'].errors }">
+    <input maxlength="11" type="text" formControlName="nruc" class="form-control" id="nruc" [ngClass]="{ 'is-invalid': fp['nruc'].errors }">
     @if (fp['nruc'].errors) {
       <div class="invalid-feedback">
         @if (fp['nruc'].errors['required']) {
           <div>El n&uacute;mero de RUC es requerido</div>
-        } @if (fp['nruc'].hasError('minlength')) {
+        } @else if (fp['nruc'].hasError('minlength')) {
         <div>
           El n&uacute;mero de RUC es requerido y debe tener como m&iacute;mino {{ fp["nruc"].errors["minlength"].requiredLength }} caracteres
         </div>
-      } @if (fp['nruc'].hasError('maxlength')) {
+        } @else if (fp['nruc'].hasError('maxlength')) {
         <div>
           El n&uacute;mero de RUC es requerido y debe tener como m&aacute;xino {{ fp["nruc"].errors["maxlength"].requiredLength }} caracteres
         </div>
-      }
+        } @else if (fp['nruc'].hasError('pattern')) {
+        <div>
+          El n&uacute;mero de RUC solo permite ingresar valores num&eacute;ricos
+        </div>
+        }
       </div>
     }
   </div>
   <div class="mb-3">
     <label for="type" class="form-label">Tipo</label>
-    <select id="type" formControlName="type" class="form-select" [ngClass]="{ 'is-invalid': fp['nruc'].errors }">
+    <select id="type" formControlName="type" class="form-select" [ngClass]="{ 'is-invalid': fp['type'].errors }">
       <option value="">Seleccione...</option>
       @for (type of types; track type.id) {
         <option value="{{type.id}}">{{ type.name }}</option>
       }
     </select>
+    @if (fp['type'].errors) {
+      <div class="invalid-feedback">
+        @if (fp['type'].errors['required']) {
+          <div>El tipo es requerido</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-3">
     <label for="name" class="form-label">Nombre</label>
@@ -118,15 +129,15 @@
     <input type="text" formControlName="email" class="form-control" id="email" [ngClass]="{ 'is-invalid': fp['email'].errors }">
     @if (fp['email'].errors) {
       <div class="invalid-feedback">
-        @if (fp['email'].hasError('minlength')) {
-          <div>
-            El email es requerido y debe tener como m&iacute;mino {{ fp["email"].errors["minlength"].requiredLength }} caracteres
-          </div>
-        } @if (fp['email'].hasError('maxlength')) {
+        @if (fp['email'].hasError('maxlength')) {
         <div>
           El email es requerido y debe tener como m&aacute;xino {{ fp["email"].errors["maxlength"].requiredLength }} caracteres
         </div>
-      }
+        } @if (fp['email'].hasError('email')) {
+        <div>
+          El email es incorrecto
+        </div>
+        }
       </div>
     }
   </div>

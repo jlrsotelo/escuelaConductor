@@ -61,7 +61,7 @@ export class EstablishmentAddComponent implements OnInit{
           this.fp['cDepartamento'].setValue(response.cubigeo.cdepartamento);
           this.fp['cProvincia'].setValue(response.cubigeo.cprovincia);
           this.fp['cDistrito'].setValue(response.cubigeo.cdistrito);
-
+          this.fp['type'].setValue(response.type.id);
           this.getProvince(this.fp['cDepartamento'].value);
           this.getDistrict(this.fp['cDepartamento'].value, this.fp['cProvincia'].value);
         },
@@ -145,7 +145,6 @@ export class EstablishmentAddComponent implements OnInit{
     const cDistrito=this.frm1.controls['cDistrito'].value;
 
     const establishment:Establishment={
-      type: type,
       name: name,
       address: address,
       state: state,
@@ -154,6 +153,9 @@ export class EstablishmentAddComponent implements OnInit{
       nruc: nruc,
       cubigeo: {
         cubigeo: cDepartamento + cProvincia + cDistrito
+      },
+      type: {
+        id: type
       }
     }
     console.log(establishment);
@@ -175,13 +177,13 @@ export class EstablishmentAddComponent implements OnInit{
         next: (response) => {
           this.establishment = response;
           this.toastr.success('El establecimiento fue registrado con exito, id='+this.establishment?.cestablishment,'Aviso');
+          this.cancelar();
         },
         error: (error) => {
           this.toastr.error('Error al registrar el establecimiento','Error');
         }
       }
     )
-    //this.cancelar();
   }
 
   update(establishment:Establishment){
@@ -191,55 +193,87 @@ export class EstablishmentAddComponent implements OnInit{
           this.establishment = response;
           console.log(this.establishment)
           this.toastr.success('El establecimiento fue actualizado con exito, id='+this.establishment.cestablishment,'Aviso');
+          this.cancelar();
         },
         error: (error) => {
           this.toastr.error('Error al actualizar el establecimiento','Error');
         }
       }
     )
-    //this.cancelar();
   }
 
   createForm1(){
     this.frm1= this.formBuilder.group(
       {
         type: [
-          Validators.required
+          '',
+          [
+            Validators.required
+          ]
         ],
         name: [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(100)
+          '',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(100)
+          ]
         ],
         address: [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(150),
+          '',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(150),
+          ]
         ],
         state: [
-          Validators.required
+          '',
+          [
+            Validators.required
+          ]
         ],
         email: [
-          Validators.minLength(5),
-          Validators.maxLength(100),
+          '',
+          [
+            Validators.maxLength(100),
+            Validators.email,
+          ]
         ],
         phone: [
-          Validators.minLength(7),
-          Validators.maxLength(20),
+          '',
+          [
+            Validators.minLength(7),
+            Validators.maxLength(20),
+          ]
         ],
         nruc: [
-          Validators.required,
-          Validators.minLength(11),
-          Validators.maxLength(11),
+          '',
+          [
+            Validators.required,
+            Validators.minLength(11),
+            Validators.maxLength(11),
+            Validators.pattern(/^\d+$/),
+          ]
         ],
         cDepartamento: [
-          Validators.required
+          '',
+          [
+            Validators.required
+          ]
         ],
         cProvincia: [
-          Validators.required
+          '',
+          [
+            Validators.required
+          ]
+
         ],
         cDistrito: [
-          Validators.required
+          '',
+          [
+            Validators.required
+          ]
         ],
       }
     )
