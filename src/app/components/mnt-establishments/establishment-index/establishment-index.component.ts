@@ -4,34 +4,123 @@ import Swal from 'sweetalert2';
 import { EstablishmentService } from '../../../services/establishment.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Department} from '../../../interfaces/department';
+import {Province} from '../../../interfaces/province';
+import {District} from '../../../interfaces/district';
+import {DepartmentService} from '../../../services/department.service';
+import {ProvinceService} from '../../../services/province.service';
+import {DistrictService} from '../../../services/district.service';
+import {CommonModule} from '@angular/common';
+import {TypesService} from '../../../services/types.service';
+import {Types} from '../../../interfaces/types';
 
 @Component({
   selector: 'app-establishment-list',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule
+  ],
   templateUrl: './establishment-index.component.html',
   styleUrl: './establishment-index.component.css'
 })
 export class EstablishmentIndexComponent implements OnInit{
   establishmentService=inject(EstablishmentService);
-  establishments:Establishment[]=[];
+  departmentService=inject(DepartmentService);
+  provinceService=inject(ProvinceService);
+  districtService=inject(DistrictService);
+  typesService=inject(TypesService);
   toastr= inject(ToastrService);
-  pagedItems:Establishment[]=[];
-  itemsPerPage:number=10;
+  formBuilder = inject(FormBuilder);
   router=inject(Router);
+
+  pagedItems:Establishment[]=[];
+  establishments:Establishment[]=[];
+  departments:Department[]=[];
+  provinces:Province[]=[];
+  districts:District[]=[];
+  types:Types[]=[];
+  itemsPerPage:number=10;
   frm1!:FormGroup;
-  formBuilder: any;
 
   ngOnInit(): void {
     this.createForm1();
+    this.getDepartment();
+    this.getAllTypes();
+  }
+
+  get fp(): { [key: string]: AbstractControl } {
+    return this.frm1.controls;
   }
 
   buscar(){
-    this.getAll();
+    if(this.frm1.invalid){
+      return;
+    }
+
+    let cUbigeo: string = "";
+    let tipo = this.fp['type'].value;
+
+    if(this.fp['cDepartamento'].value != ''){
+      cUbigeo = this.fp['cDepartamento'].value;
+    }
+    if(this.fp['cProvincia'].value != '') {
+      cUbigeo += this.fp['cProvincia'].value;
+    }
+    if(this.fp['cDistrito'].value != ''){
+      cUbigeo += this.fp['cDistrito'].value;
+    }
+    if(cUbigeo==""){
+      this.getAll();
+    }else{
+      this.findByUbigeo(tipo, cUbigeo);
+    }
   }
 
   nuevo(){
     this.router.navigate(['establecimiento/add']);
+  }
+
+  getDepartment(){
+    this.departmentService.getDepartment().subscribe(
+      {
+        next: (response) => {
+          this.departments = response;
+          console.log(this.departments)
+        },
+        error: (error) => {
+          console.error('Error fetching data:', error);
+        }
+      }
+    )
+  }
+
+  getProvince(cdep:string){
+    this.provinceService.getProvince(cdep).subscribe(
+      {
+        next: (response) => {
+          this.provinces = response;
+          console.log(this.provinces)
+        },
+        error: (error) => {
+          console.error('Error fetching data:', error);
+        }
+      }
+    )
+  }
+
+  getDistrict(cdep:string, cprov:string){
+    this.districtService.getDistrict(cdep,cprov).subscribe(
+      {
+        next: (response) => {
+          this.districts = response;
+          console.log(this.districts)
+        },
+        error: (error) => {
+          console.error('Error fetching data:', error);
+        }
+      }
+    )
   }
 
   getAll(){
@@ -86,7 +175,48 @@ export class EstablishmentIndexComponent implements OnInit{
   createForm1(){
     this.frm1= this.formBuilder.group(
       {
+        cDepartamento: [
+          ''
+        ],
+        cProvincia: [
+          ''
+        ],
+        cDistrito: [
+          ''
+        ],
+        type: [
+          '',
+          [
+            Validators.required
+          ]
+        ],
+      }
+    )
+  }
 
+  findByUbigeo(tipo:number, cUbigeo:string){
+    this.establishmentService.findByUbigeo(tipo,cUbigeo).subscribe(
+      {
+        next: (response) => {
+          this.establishments = response;
+        },
+        error: (error) => {
+          console.error('Error fetching data:', error);
+        }
+      }
+    )
+  }
+
+  getAllTypes(){
+    this.typesService.getAll().subscribe(
+      {
+        next: (response) => {
+          this.types = response;
+          console.log(this.types)
+        },
+        error: (error) => {
+          console.error('Error fetching data:', error);
+        }
       }
     )
   }

@@ -46,4 +46,10 @@ export class EstablishmentService {
     console.log(uri_local);
     return this.http.get<Establishment>(uri_local);
   }
+
+  findByUbigeo(type?:number, cUbigeo?:string):Observable<Establishment[]>{
+    const uri_local=`${this.uri}/by-ubigeo?type=${type}&cubigeo=${cUbigeo}`;
+    console.log(uri_local)
+    return this.http.get<Establishment[]>(uri_local);
+  }
 }
