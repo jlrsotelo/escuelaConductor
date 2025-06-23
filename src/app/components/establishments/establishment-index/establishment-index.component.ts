@@ -71,14 +71,14 @@ export class EstablishmentIndexComponent implements OnInit{
       cUbigeo += this.fp['cDistrito'].value;
     }
     if(cUbigeo==""){
-      this.getAll();
+      this.findByType(tipo);
     }else{
       this.findByUbigeo(tipo, cUbigeo);
     }
   }
 
   nuevo(){
-    this.router.navigate(['establecimiento/add']);
+    this.router.navigate(['establecimiento/establecimiento/add']);
   }
 
   getDepartment(){
@@ -123,15 +123,14 @@ export class EstablishmentIndexComponent implements OnInit{
     )
   }
 
-  getAll(){
-    this.establishmentService.getAll().subscribe(
+  findByType(id:number){
+    this.establishmentService.findByType(id).subscribe(
       {
         next: (response) => {
           this.establishments = response;
-          this.pagedItems = this.establishments.slice(0, this.itemsPerPage);
         },
         error: (error) => {
-          console.error('Error fetching data - products:', error);
+          console.error('Error fetching data:', error);
         }
       }
     )
@@ -169,7 +168,7 @@ export class EstablishmentIndexComponent implements OnInit{
   }
 
   modificar(establishment:Establishment){
-    this.router.navigate(['establecimiento/add', establishment.cestablishment]);
+    this.router.navigate(['establecimiento/establecimiento/add', establishment.cestablishment]);
   }
 
   createForm1(){

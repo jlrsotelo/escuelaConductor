@@ -53,7 +53,7 @@
   </tr>
   </thead>
   <tbody>
-    @for (establishment of establishments; track establishment.cestablishment) {
+    @for (establishment of pagedItems; track establishment.cestablishment) {
       <tr>
         <td>{{establishment.cestablishment}}</td>
         <td>{{establishment.cubigeo.departamento}}</td>
@@ -72,3 +72,18 @@
   Total registros:
   </tfoot>
 </table>
+<div class="row">
+  <div class="col-12">
+    <pagination
+      [totalItems]="establishments.length"
+      [(ngModel)]="currentPage"
+      (pageChanged)="pageChanged($event)"
+      [itemsPerPage]="5"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
+  </div>
+</div>

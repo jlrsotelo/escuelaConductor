@@ -168,7 +168,7 @@ export class EstablishmentAddComponent implements OnInit{
   }
 
   cancelar(){
-    this.router.navigate(['establecimiento/mantenimiento']);
+    this.router.navigate(['establecimiento/establecimiento/mantenimiento']);
   }
 
   add(establishment:Establishment){

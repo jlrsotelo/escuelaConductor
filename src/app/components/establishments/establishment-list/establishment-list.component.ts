@@ -2,7 +2,13 @@ import {Component, inject, OnInit} from '@angular/core';
 import {Establishment} from '../../../interfaces/establishment';
 import {EstablishmentService} from '../../../services/establishment.service';
 import {ActivatedRoute} from '@angular/router';
-import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule
+} from "@angular/forms";
 import {Department} from '../../../interfaces/department';
 import {DepartmentService} from '../../../services/department.service';
 import {ProvinceService} from '../../../services/province.service';
@@ -10,29 +16,36 @@ import {DistrictService} from '../../../services/district.service';
 import {Province} from '../../../interfaces/province';
 import {District} from '../../../interfaces/district';
 import {CommonModule} from '@angular/common';
+import {PageChangedEvent, PaginationModule} from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-establishment-list',
     imports: [
       ReactiveFormsModule,
-      CommonModule
+      CommonModule,
+      FormsModule,
+      PaginationModule
     ],
   templateUrl: './establishment-list.component.html',
   styleUrl: './establishment-list.component.css'
 })
 export class EstablishmentListComponent implements OnInit{
-  establishments: Establishment[] = [];
   establishmentService=inject(EstablishmentService);
   departmentService=inject(DepartmentService);
   provinceService=inject(ProvinceService);
   districtService=inject(DistrictService);
   activatedRoute= inject(ActivatedRoute);
-  id:number=0;
-  frm1!:FormGroup;
   formBuilder = inject(FormBuilder);
+
+  establishments: Establishment[]=[];
   departments:Department[]=[];
   provinces:Province[]=[];
   districts:District[]=[];
+  pagedItems:Establishment[]=[];
+  currentPage:number=1;
+  itemsPerPage:number=5;
+  id:number=0;
+  frm1!:FormGroup;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((p)=> {
@@ -51,6 +64,7 @@ export class EstablishmentListComponent implements OnInit{
     this.establishments=[];
     this.provinces=[];
     this.districts=[];
+    this.pagedItems=[];
   }
 
   getDepartment(){
@@ -135,6 +149,7 @@ export class EstablishmentListComponent implements OnInit{
       {
         next: (response) => {
           this.establishments = response;
+          this.pagedItems = this.establishments.slice(0, this.itemsPerPage);
         },
         error: (error) => {
           console.error('Error fetching data:', error);
@@ -148,11 +163,18 @@ export class EstablishmentListComponent implements OnInit{
       {
         next: (response) => {
           this.establishments = response;
+          this.pagedItems = this.establishments.slice(0, this.itemsPerPage);
         },
         error: (error) => {
           console.error('Error fetching data:', error);
         }
       }
     )
+  }
+
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * this.itemsPerPage; //0
+    const endItem = event.page * this.itemsPerPage; //10
+    this.pagedItems = this.establishments.slice(startItem, endItem);
   }
 }
