@@ -43,7 +43,7 @@ export class EstablishmentListComponent implements OnInit{
   districts:District[]=[];
   pagedItems:Establishment[]=[];
   currentPage:number=1;
-  itemsPerPage:number=5;
+  itemsPerPage:number=10;
   id:number=0;
   frm1!:FormGroup;
 
@@ -58,6 +58,11 @@ export class EstablishmentListComponent implements OnInit{
 
   get fp(): { [key: string]: AbstractControl } {
     return this.frm1.controls;
+  }
+
+  limpiarLista(){
+    this.establishments=[];
+    this.pagedItems=[];
   }
 
   limpiar(){
@@ -126,6 +131,7 @@ export class EstablishmentListComponent implements OnInit{
   }
 
   buscar(){
+    this.limpiarLista();
     let cUbigeo: string = "";
     if(this.fp['cDepartamento'].value != ''){
       cUbigeo = this.fp['cDepartamento'].value;

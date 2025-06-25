@@ -1,21 +1,26 @@
-<nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-  <a routerLink="establecimiento" class="navbar-brand" href="#">Licencias de conducir</a>
-
-  <ul class="nav nav-pills">
-    <li class="nav-item">
-      <a routerLink="establecimiento/establecimiento/mantenimiento" class="nav-link" href="#">Registro</a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="establecimiento/establecimiento/consulta/1" class="nav-link" href="#">Centros M&eacute;dicos</a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="establecimiento/establecimiento/consulta/2" class="nav-link" href="#">Escuela de Conductores</a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="establecimiento/establecimiento/consulta/3" class="nav-link" href="#">Centros de Evaluaci&oacute;n</a>
-    </li>
-  </ul>
+<nav class="navbar navbar-expand-lg A0">
+  <div class="container-fluid A1">
+    <div class="col-lg-2 text-lg-left"><img class="img-fluid" src="../images/logoGOB-PE.png" width="120px"></div>
+    <div class="col-lg-6 text-white A2">Dirección General de Autorizaciones <br>en Transportes</div>
+    <div class="col-lg-4 text-white A2">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a routerLink="establecimiento/establecimiento/mantenimiento" class="nav-link" href="#">Registro</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="establecimiento/establecimiento/consulta/1" class="nav-link" href="#">Centros M&eacute;dicos</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="establecimiento/establecimiento/consulta/2" class="nav-link" href="#">Escuela de Conductores</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="establecimiento/establecimiento/consulta/3" class="nav-link" href="#">Centros de Evaluaci&oacute;n</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
-<div class="container-fluid">
+<br><br>
+<div class="container overflow-auto">
   <router-outlet />
 </div>

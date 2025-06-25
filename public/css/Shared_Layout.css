@@ -1,0 +1,77 @@
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: table;
+    padding-top: 0;
+}
+
+footer {
+    background-color: white;
+    display: table-row;
+    height: 0;
+}
+
+.A0 {
+    background-color: #bf0909
+}
+
+.A1 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+}
+
+.A2 {
+    border-left: 1px solid white;
+}
+
+.A3 {
+    background-color: #FAFAFA;
+}
+
+.A4 {
+    background-color: #FAFAFA;
+    padding-left: 0px;
+    border-left-width: 0px;
+    border-right: 0px;
+}
+
+.A5 {
+    padding-top: 30px;
+    padding-bottom: 5px;
+}
+
+.A6 {
+    width: 201px;
+    height: 101px;
+}
+
+.A7 {
+    padding-right: 0px;
+    color: #999999;
+    font-size: 14px;
+}
+
+.A8 {
+    padding-right: 0px;
+    color: #555555;
+    font-size: 14px;
+}
+
+.A9 {
+    color: royalblue;
+}
+
+.nav-link{
+  color: #ffffff;
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active {
+  text-decoration: underline;
+  color: #ffffff;
+}
+

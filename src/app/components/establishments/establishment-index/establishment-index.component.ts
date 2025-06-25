@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {Component, inject, OnInit, TemplateRef} from '@angular/core';
 import { Establishment } from '../../../interfaces/establishment';
 import Swal from 'sweetalert2';
 import { EstablishmentService } from '../../../services/establishment.service';
@@ -11,15 +11,20 @@ import {District} from '../../../interfaces/district';
 import {DepartmentService} from '../../../services/department.service';
 import {ProvinceService} from '../../../services/province.service';
 import {DistrictService} from '../../../services/district.service';
-import {CommonModule} from '@angular/common';
+import {CommonModule, JsonPipe} from '@angular/common';
 import {TypesService} from '../../../services/types.service';
 import {Types} from '../../../interfaces/types';
+import {ModalModule, BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-establishment-list',
   imports: [
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    JsonPipe
+  ],
+  providers: [
+    BsModalService
   ],
   templateUrl: './establishment-index.component.html',
   styleUrl: './establishment-index.component.css'
@@ -33,6 +38,7 @@ export class EstablishmentIndexComponent implements OnInit{
   toastr= inject(ToastrService);
   formBuilder = inject(FormBuilder);
   router=inject(Router);
+  modalService= inject(BsModalService);
 
   pagedItems:Establishment[]=[];
   establishments:Establishment[]=[];
@@ -42,6 +48,8 @@ export class EstablishmentIndexComponent implements OnInit{
   types:Types[]=[];
   itemsPerPage:number=10;
   frm1!:FormGroup;
+  establishmentSelect?:Establishment;
+  modalRef?: BsModalRef;
 
   ngOnInit(): void {
     this.createForm1();
@@ -218,5 +226,14 @@ export class EstablishmentIndexComponent implements OnInit{
         }
       }
     )
+  }
+
+  visualizar(establishment:Establishment,template: TemplateRef<void>){
+    this.establishmentSelect=establishment
+    this.openModal(template)
+  }
+
+  openModal(template: TemplateRef<void>) {
+    this.modalRef = this.modalService.show(template);
   }
 }
