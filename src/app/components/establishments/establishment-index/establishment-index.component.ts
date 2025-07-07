@@ -21,7 +21,7 @@ import {ModalModule, BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    JsonPipe
+    /*JsonPipe*/
   ],
   providers: [
     BsModalService
@@ -86,7 +86,7 @@ export class EstablishmentIndexComponent implements OnInit{
   }
 
   nuevo(){
-    this.router.navigate(['establecimiento/establecimiento/add']);
+    this.router.navigate(['mantenimiento/establecimiento/add']);
   }
 
   getDepartment(){
@@ -176,7 +176,7 @@ export class EstablishmentIndexComponent implements OnInit{
   }
 
   modificar(establishment:Establishment){
-    this.router.navigate(['establecimiento/establecimiento/add', establishment.cestablishment]);
+    this.router.navigate(['mantenimiento/establecimiento/add', establishment.cestablishment]);
   }
 
   createForm1(){
