@@ -1,3 +1,3 @@
 export const API_CONSTANT = {
-  apiBase:'http://localhost:8080'
+  apiBase:'https://conducirapi-1755633802989.azurewebsites.net'
 };
