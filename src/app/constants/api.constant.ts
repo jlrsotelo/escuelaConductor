@@ -1,3 +1,3 @@
 export const API_CONSTANT = {
-  apiBase:'https://conducirapi-1755633802989.azurewebsites.net'
+  apiBase:'https://conducirapi-1756227059576.azurewebsites.net'
 };
